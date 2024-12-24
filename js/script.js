@@ -33,6 +33,7 @@ window.addEventListener("load", () => {
     colorSelect.disabled = true;
   });
 
+
 /*
     Job Role listener that shows another input if the user selexts "Other".
 */
@@ -151,6 +152,10 @@ payment.addEventListener("change", (e) => {
 });
 
 
+/*
+    Payment Info listener that shows only the module for the selected payment method.
+*/
+
 const nameHint = document.querySelector("#name-hint");
 const emailHint = document.querySelector("#email-hint");
 const actsHint = document.querySelector("#activities-hint");
@@ -158,8 +163,14 @@ const cardHint = document.querySelector("#cc-hint");
 const zipHint = document.querySelector("#zip-hint");
 const cvvHint = document.querySelector("#cvv-hint");
 
+/*
+    Payment Info listener that shows only the module for the selected payment method.
+*/
+
+
 form.addEventListener("submit", (e) => {
     const cardPattern = /[^0-9][\s]*/;
+    const zipPattern = /^[0-9]{5}(?:-[0-9]{4})?$/;
     let count= 0;
 
     if(nameInput.value === "") {
@@ -198,15 +209,15 @@ form.addEventListener("submit", (e) => {
             cardHint.parentElement.classList.remove('not-valid');
             cardHint.parentElement.classList.add('valid');
         }
-        if (zip.value === "" || zip.value.length !== 5){
+        if (zip.value === "" || zip.value.length !== 5 || !(zipPattern.test(zip.value))) {
             zipHint.style.display = "inline";
             e.preventDefault();
             zipHint.parentElement.classList.add('not-valid');
             zipHint.parentElement.classList.remove('valid');
         } else {
             zipHint.style.display = "none";
-            cardHint.parentElement.classList.remove('not-valid');
-            cardHint.parentElement.classList.add('valid');
+            zipHint.parentElement.classList.remove('not-valid');
+            zipHint.parentElement.classList.add('valid');
         }
         if (cvv.value === "" || cvv.value.length !== 3){
             cvvHint.style.display = "inline";
@@ -247,3 +258,7 @@ form.addEventListener("keyup", (e) => {
         emailHint.parentElement.classList.add('valid');
     }
 });    
+
+hello = () => {
+    return "Hello World!";
+} 
